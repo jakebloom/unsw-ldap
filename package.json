@@ -1,0 +1,15 @@
+{
+  "name": "unsw-ldap",
+  "version": "1.0.0",
+  "description": "Perform queries to unsw's LDAP server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ldap",
+    "unsw"
+  ],
+  "author": "Jake Bloom",
+  "license": "ISC"
+}
