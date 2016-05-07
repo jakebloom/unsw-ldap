@@ -11,5 +11,18 @@
     "unsw"
   ],
   "author": "Jake Bloom",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "ldapjs": "^1.0.0",
+    "promise": "^7.1.1"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jake-waratahs/unsw-ldap.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jake-waratahs/unsw-ldap/issues"
+  },
+  "homepage": "https://github.com/jake-waratahs/unsw-ldap#readme"
 }
