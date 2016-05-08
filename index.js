@@ -7,20 +7,22 @@ HOST = 'ldap://ad.unsw.edu.au:389';
 BASE_DN = 'OU=IDM,DC=ad,DC=unsw,DC=edu,DC=au';
 USER_DN = ZID + '@ad.unsw.edu.au';
 
-var client = ldap.createClient({
-	url: HOST
-});
 
-function getUserName(zid) {
+function queryAd(opts) {
+	var client = ldap.createClient({
+		url: HOST
+	});
+
 	var promise = new Promise(function(resolve, reject){
+		
 		var results = [];
 		client.bind(USER_DN, ZPASS, function(err){
-			if (err) {return err;}
-			var opts = {
-				filter: '(cn='+zid+')',
-				scope: 'sub',
-				attributes: ['displayName']
-			};
+			if (err) {
+				console.log(err);
+				reject(err);
+			}
+
+			opts = opts || {};
 			client.search(BASE_DN, opts, function(err, res){
 				if (err) {reject(err);}
 
@@ -45,7 +47,21 @@ function getUserName(zid) {
 }
 
 function getMe() {
-	return getUserName(ZID);
+	var opts = {
+		filter: '(cn='+ZID+')',
+		scope: 'sub',
+		attributes: ['displayName']
+	}
+	return queryAd(opts);
+}
+
+function getUserName(zid) {
+		var opts = {
+		filter: '(cn='+zid+')',
+		scope: 'sub',
+		attributes: ['displayName']
+	}
+	return queryAd(opts);
 }
 
 module.exports = {
