@@ -1,6 +1,6 @@
 {
   "name": "unsw-ldap",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Perform queries to unsw's LDAP server",
   "main": "index.js",
   "scripts": {
