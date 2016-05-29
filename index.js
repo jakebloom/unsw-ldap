@@ -1,11 +1,9 @@
 var ldap = require('ldapjs');
 var Promise = require('promise');
 
-ZID = process.env.UNSW_ZID;
-ZPASS = process.env.UNSW_ZPASS;
 HOST = 'ldap://ad.unsw.edu.au:389';
 BASE_DN = 'OU=IDM,DC=ad,DC=unsw,DC=edu,DC=au';
-USER_DN = ZID + '@ad.unsw.edu.au';
+DN_SUFFIX = '@ad.unsw.edu.au';
 
 
 function queryAd(opts) {
@@ -16,9 +14,8 @@ function queryAd(opts) {
 	var promise = new Promise(function(resolve, reject){
 		
 		var results = [];
-		client.bind(USER_DN, ZPASS, function(err){
+		client.bind(opts.zid + DN_SUFFIX, opts.zpass, function(err){
 			if (err) {
-				console.log(err);
 				reject(err);
 			}
 
@@ -46,17 +43,10 @@ function queryAd(opts) {
 	return promise;
 }
 
-function getMe() {
+function getUserName(zid, zpass) {
 	var opts = {
-		filter: '(cn='+ZID+')',
-		scope: 'sub',
-		attributes: ['displayName']
-	}
-	return queryAd(opts);
-}
-
-function getUserName(zid) {
-		var opts = {
+		zid: zid,
+		zpass: zpass,
 		filter: '(cn='+zid+')',
 		scope: 'sub',
 		attributes: ['displayName']
@@ -65,6 +55,5 @@ function getUserName(zid) {
 }
 
 module.exports = {
-	getMe: getMe,
 	getUserName: getUserName
 }
